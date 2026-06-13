@@ -60,39 +60,37 @@ Xem hướng dẫn đóng gói bên dưới để tự build file .exe.
 
 ### Bước 1: Cài đặt PyInstaller
 ```bash
-pip install pyinstaller
+python -m pip install pyinstaller
 ```
 
 ### Bước 2: Đóng gói ứng dụng
 Mở CMD tại thư mục `d:\github\GitHubManager` và chạy:
 
 ```bash
-pyinstaller --onefile --windowed --name "GitHubManager" --icon=NONE --add-data "customtkinter;customtkinter" main_app.py
+python -m PyInstaller --onefile --windowed main_app.py
 ```
+
+Sau khi chạy xong, file .exe sẽ nằm trong thư mục:
+```
+d:\github\GitHubManager\dist\main_app.exe
+```
+
+Bạn có thể đổi tên file từ `main_app.exe` thành `GitHubManager.exe` cho dễ nhớ.
 
 **Giải thích tham số:**
 | Tham số | Ý nghĩa |
 |---------|---------|
 | `--onefile` | Gộp tất cả vào 1 file .exe duy nhất |
 | `--windowed` | Không hiện cửa sổ Console (CMD) khi chạy |
-| `--name "GitHubManager"` | Tên file .exe đầu ra |
-| `--icon=app.ico` | (Tùy chọn) Thêm icon cho ứng dụng |
-| `--add-data` | Nhúng thư viện customtkinter vào file .exe |
 | `main_app.py` | File chính của ứng dụng |
 
-### Bước 3: Lấy file .exe
-Sau khi chạy xong lệnh trên, file .exe sẽ nằm trong thư mục:
-```
-d:\github\GitHubManager\dist\GitHubManager.exe
-```
-
-### Bước 4: Tạo shortcut (tùy chọn)
-- Chuột phải vào `GitHubManager.exe` → "Gửi tới" → "Desktop (tạo lối tắt)"
+### Bước 3: Tạo shortcut (tùy chọn)
+- Chuột phải vào file `.exe` → "Gửi tới" → "Desktop (tạo lối tắt)"
 - Hoặc copy file .exe ra Desktop để tiện sử dụng
 
 ### Lưu ý khi build .exe
 - File .exe có thể bị Windows Defender cảnh báo. Chọn "Run anyway" để chạy.
-- File .exe sẽ có dung lượng khoảng 30-50MB do chứa toàn bộ thư viện.
+- File .exe sẽ có dung lượng khoảng 30-50MB do chứa toàn bộ thư viện Python.
 
 ---
 
