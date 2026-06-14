@@ -656,11 +656,7 @@ class GitHubManagerApp:
                 if result['has_changes']:
                     self.file_list_textbox.insert("end", f"📝 Có {len(result['files'])} file thay đổi:\n\n")
                     for file_info in result['files']:
-                        status_icon = {
-                            'M': '✏️', 'A': '➕', 'D': '🗑️',
-                            'R': '🔀', 'C': '📋', 'U': '❓', '??': '🆕'
-                        }.get(file_info['status'], '❓')
-                        line = f"  {status_icon} [{file_info['description']}] {file_info['path']}\n"
+                        line = f"  {file_info['description']} - {file_info['path']}\n"
                         self.file_list_textbox.insert("end", line)
                     self.log_message(f"📝 Có {len(result['files'])} file thay đổi trong thư mục.")
                 else:

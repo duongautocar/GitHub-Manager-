@@ -150,9 +150,40 @@ class GitManager:
         files = []
         if output:
             for line in output.split('\n'):
-                if line.strip():
-                    status_code = line[:2].strip()
-                    file_path = line[3:].strip()
+                line = line.strip()
+                if not line:
+                    continue
+
+                # Format của git status --porcelain:
+                #   XY filename
+                #   XY "filename có space"
+                #   XY filename -> newname  (rename)
+                # Trong đó X,Y là 1 hoặc 2 ký tự (VD: ??, M, A, D, R, ...)
+                if len(line) > 3:
+                    # Lấy mã trạng thái (2 ký tự đầu, nhưng ?? là 2 ký tự)
+                    xy_part = line[:2]
+                    # Xác định độ dài mã trạng thái
+                    if xy_part[0] == '?' and xy_part[1] == '?':
+                        status_code = '??'
+                        path_start = 3  # '??' + space
+                    elif xy_part[0] in ' MADRUC' and xy_part[1] == ' ':
+                        status_code = xy_part[0]
+                        path_start = 2  # 'X' + space (XY format: X + space)
+                    else:
+                        # Trường hợp khác, lấy 2 ký tự
+                        status_code = line[:2].strip()
+                        path_start = 2
+
+                    file_path = line[path_start:].strip()
+                    
+                    # Xử lý rename (chứa '->')
+                    if '->' in file_path:
+                        parts = file_path.split('->')
+                        file_path = parts[-1].strip()
+
+                    # Bỏ dấu ngoặc kép nếu có
+                    file_path = file_path.strip('"')
+
                     files.append({
                         'path': file_path,
                         'status': status_code,
@@ -168,15 +199,16 @@ class GitManager:
     def _get_status_description(self, status_code):
         """Chuyển mã trạng thái Git thành mô tả tiếng Việt"""
         status_map = {
-            'M': 'Đã sửa',
-            'A': 'Đã thêm',
-            'D': 'Đã xóa',
-            'R': 'Đã đổi tên',
-            'C': 'Đã sao chép',
-            'U': 'Chưa merge',
-            '??': 'Chưa theo dõi',
+            'M': '✏️ Đã sửa',
+            'A': '➕ Đã thêm',
+            'D': '🗑 Đã xóa',
+            'R': '🔀 Đã đổi tên',
+            'C': '📋 Đã sao chép',
+            'U': '❓ Chưa merge',
+            '??': '🆕 Mới (chưa theo dõi)',
+            'T': '🔄 Đã thay đổi type',
         }
-        return status_map.get(status_code, f'Không xác định ({status_code})')
+        return status_map.get(status_code, f'Lỗi: không xác định ({status_code})')
 
     def add_files(self, repo_path, files=None):
         """

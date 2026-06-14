@@ -1,13 +1,22 @@
 # ============================================================
-# GitHub Manager - Danh sách thư viện cần cài đặt
+# GitHub Manager Pro - Danh sách thư viện cần cài đặt
 # ============================================================
 # Cách dùng: pip install -r requirements.txt
 
-customtkinter>=5.2.2
+# PyQt6 - Giao diện người dùng hiện đại
+PyQt6>=6.5.0
+
+# requests - Gọi GitHub REST API v3
+requests>=2.31.0
+
+# PyGithub - Thư viện GitHub API (giữ cho tương thích ngược)
 PyGithub>=2.3.0
+
+# Pillow - Xử lý ảnh
 Pillow>=10.0.0
 
 # ============================================================
 # Để đóng gói thành file .exe (tùy chọn):
 # pip install pyinstaller
+# pyinstaller --name "GitHubManagerPro" --windowed --onefile main.py
 # ============================================================

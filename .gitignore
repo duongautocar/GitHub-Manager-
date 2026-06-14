@@ -1,0 +1,43 @@
+# ============================================================
+# GitHub Manager - .gitignore
+# Các file/thư mục này sẽ bị Git bỏ qua
+# ============================================================
+
+# Thư mục build của PyInstaller
+build/
+dist/
+*.spec
+
+# File thực thi .exe (quá nặng, không nên push lên GitHub)
+*.exe
+*.msi
+*.dll
+
+# Thư mục __pycache__ (bytecode Python)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Môi trường ảo Python
+venv/
+env/
+.venv/
+.env/
+
+# IDE: Visual Studio Code
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# File cấu hình người dùng (chứa token)
+config.json
+
+# File log
+*.log
+
+# File tạm thời
+*.tmp
+*.temp
+Thumbs.db
+.DS_Store
