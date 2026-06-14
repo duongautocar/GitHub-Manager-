@@ -156,6 +156,8 @@ GitHubManager/
 ├── config_manager.py     # Quản lý cấu hình/lưu token
 ├── requirements.txt      # Danh sách thư viện
 └── README.md             # Hướng dẫn sử dụng (file này)
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/65831e5a-b0da-4465-8152-207fb3faf560" />
+
 ```
 
 ---
